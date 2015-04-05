@@ -23,16 +23,16 @@ function changeFnc( fncName )
     <input type="hidden" name="cl" value="jx_voucherserie_show">
 </form>
 
-<form name="vouchershow" id="vouchershow" action="[{ $oViewConf->getSelfLink() }]" method="post">
-    [{ $oViewConf->getHiddenSid() }]
-    <input type="hidden" name="oxid" value="[{ $oxid }]">
-    <input type="hidden" name="cl" value="jx_voucherserie_show">
-    <input type="hidden" name="fnc" value="">
-    <input type="hidden" name="voucherdelid" value="">
 
-    <div style="height:100%;">
+<div style="height:100%;">
 
-	<div id="liste" style="border:0px solid gray; padding:4px; [{*height:100%; width:100%;*}]width:59%; height:96%; overflow-y:scroll; float:left;">
+    <div id="liste" style="border:0px solid gray; padding:4px; [{*height:100%; width:100%;*}]width:59%; height:96%; overflow-y:scroll; float:left;">
+        <form name="vouchershow" id="vouchershow" action="[{ $oViewConf->getSelfLink() }]" method="post">
+            [{ $oViewConf->getHiddenSid() }]
+            <input type="hidden" name="oxid" value="[{ $oxid }]">
+            <input type="hidden" name="cl" value="jx_voucherserie_show">
+            <input type="hidden" name="fnc" value="">
+            <input type="hidden" name="voucherdelid" value="">
             <table cellspacing="0" cellpadding="0" border="0" width="100%">
                 <tr>
                     <td class="listheader first">[{ oxmultilang ident="GENERAL_ACTIVTITLE" }]</td>
@@ -64,22 +64,22 @@ function changeFnc( fncName )
                     </tr>
                 [{/foreach}]
             </table>
-        </div>
-
-        <div style="width:40%;float:left;">
-        <fieldset title="Gutschein" style="margin-left:15px; padding-top:15px;">
-                <legend>Gutschein</legend>
-                <iframe src="[{$oViewConf->getSelfLink()}]&cl=jx_voucherserie_show&voucherid=[{$oxid}]" width="100%" height="250" frameborder="0" name="jxvouchershow_detail" align="left">
-                </iframe>
-        </fieldset>
-        </div>
-
-        <div style="float:right;position:relative;bottom:-60px;padding-right:10px;">
-                <a href="https://github.com/job963/jxVoucherShow" target="_blank"><span style="color:gray;">jxVoucherShow</span></a>
-        </div>
-
+        </form>
     </div>
-</form>
+
+    <div style="width:40%;float:left;">
+    <fieldset title="Gutschein" style="margin-left:15px; padding-top:15px;">
+            <legend>Gutschein</legend>
+            <iframe src="[{$oViewConf->getSelfLink()}]&cl=jx_voucherserie_show&voucherid=[{$oxid}]" width="100%" height="250" frameborder="0" name="jxvouchershow_detail" align="left">
+            </iframe>
+    </fieldset>
+    </div>
+
+    <div style="float:right;position:relative;bottom:-40px;padding-right:10px;">
+            <a href="https://github.com/job963/jxVoucherShow" target="_blank"><span style="color:gray;">jxVoucherShow</span></a>
+    </div>
+
+</div>
 
 [{include file="bottomnaviitem.tpl"}]
 [{include file="bottomitem.tpl"}]
