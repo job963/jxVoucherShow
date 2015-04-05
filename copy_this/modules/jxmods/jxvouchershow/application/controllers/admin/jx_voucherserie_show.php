@@ -30,42 +30,55 @@ class jx_voucherserie_show extends oxAdminDetails {
      * Displays all vouchers of this series
      */
     public function render() 
-	{
-		parent::render();
+    {
+        parent::render();
 
-		$sVoucherserieId = $this->getEditObjectId();
+        $sVoucherserieId = $this->getEditObjectId();
 		
-        $sVoucherId = oxRegistry::getConfig()->getRequestParameter("voucherid");
-		if ( $sVoucherId ) {
-			$sWhere = " v.oxid = '{$sVoucherId}' ";
+        $sVoucherId = oxRegistry::getConfig()->getRequestParameter( 'voucherid' );
+        if ( $sVoucherId ) {
+            $sWhere = " v.oxid = '{$sVoucherId}' ";
             $this->_sThisTemplate = "jx_voucherserie_showdetails.tpl";
         }
-		else {
-			$sWhere = "v.oxvoucherserieid = '{$sVoucherserieId}' ";
-		}
+        else {
+            $sWhere = "v.oxvoucherserieid = '{$sVoucherserieId}' ";
+        }
 		
-		$sSql = "SELECT IF(v.oxdateused='0000-00-00',1,0) AS oxactive, v.oxid, v.oxdateused, v.oxvouchernr, v.oxdiscount, s.oxdiscounttype, v.oxuserid, "
-						. "o.oxbillfname AS oxfname, o.oxbilllname AS oxlname, o.oxbillstreet AS oxstreet, o.oxbillstreetnr AS ostreetnr, o.oxbillzip AS oxzip, o.oxbillcity AS oxcity, "
-						. "o.oxordernr, o.oxorderdate, o.oxtotalordersum, o.oxcurrency , v.oxvoucherserieid "
-					. "FROM oxvouchers v "
-					//. "LEFT JOIN oxuser u ON (v.oxuserid = u.oxid) "
-					. "LEFT JOIN oxorder o ON (v.oxorderid = o.oxid) "
-					. "LEFT JOIN oxvoucherseries s ON (v.oxvoucherserieid = s.oxid) "
-					. "WHERE {$sWhere} "
-					. "ORDER BY oxactive DESC, v.oxdateused DESC, v.oxvouchernr ";
+        $sSql = "SELECT IF(v.oxdateused='0000-00-00',1,0) AS oxactive, v.oxid, v.oxdateused, v.oxvouchernr, v.oxdiscount, s.oxdiscounttype, v.oxuserid, "
+                        . "o.oxbillfname AS oxfname, o.oxbilllname AS oxlname, o.oxbillstreet AS oxstreet, o.oxbillstreetnr AS ostreetnr, o.oxbillzip AS oxzip, o.oxbillcity AS oxcity, "
+                        . "o.oxordernr, o.oxorderdate, o.oxtotalordersum, o.oxcurrency , v.oxvoucherserieid "
+                    . "FROM oxvouchers v "
+                    . "LEFT JOIN oxorder o ON (v.oxorderid = o.oxid) "
+                    . "LEFT JOIN oxvoucherseries s ON (v.oxvoucherserieid = s.oxid) "
+                    . "WHERE {$sWhere} "
+                    . "ORDER BY oxactive DESC, v.oxdateused DESC, v.oxvouchernr ";
 		
-		//echo $sSql.'<hr>';
-		$oDb = oxDb::getDb( oxDB::FETCH_MODE_ASSOC );
-		$rs = $oDb->Execute($sSql);
-		$aVouchers = array();
-		while (!$rs->EOF) {
-			array_push($aVouchers, $rs->fields);
-			$rs->MoveNext();
-		}
-		
-		$this->_aViewData["aVouchers"] = $aVouchers;
-		
-		return $this->_sThisTemplate;
-	}
+        //echo $sSql.'<hr>';
+        $oDb = oxDb::getDb( oxDB::FETCH_MODE_ASSOC );
+        $rs = $oDb->Execute($sSql);
+        $aVouchers = array();
+        while (!$rs->EOF) {
+            array_push($aVouchers, $rs->fields);
+            $rs->MoveNext();
+        }
+
+        $this->_aViewData["aVouchers"] = $aVouchers;
+
+        return $this->_sThisTemplate;
+    }
+    
+    
+    public function deleteVoucher() 
+    {
+        $sVoucherId = oxRegistry::getConfig()->getRequestParameter( 'voucherdelid' );
+        
+        //echo 'deleteVoucher='.$sVoucherId;
+        $sSql = "DELETE FROM oxvouchers WHERE oxid = '{$sVoucherId}' ";
+        $oDb = oxDb::getDb();
+        $oDb->Execute($sSql);
+        $oDb = null;
+        
+        return;
+    }
 	
 }

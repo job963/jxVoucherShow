@@ -8,4 +8,5 @@ $aLang = array(
 	'tbclvoucherserie_show'                	=> 'Display Coupons',
 	'JX_VOUCHER_SHOW_ABSOLUTE'              => 'absolute',
 	'JX_VOUCHER_SHOW_PERCENT'               => '%',
+	'JXMODS_DELETECONFIRM'                  => 'Do you want to delete this entry?',
 );
