@@ -15,7 +15,7 @@ $aModule = array(
                         'en' => 'Display of created coupons and their use.'
                         ),
     'thumbnail'    => 'jxvouchershow.png',
-    'version'      => '0.1.1',
+    'version'      => '0.1.2',
     'author'       => 'Joachim Barthel',
     'url'          => 'https://github.com/job963/jxvouchershow',
     'email'        => 'jobarthel@gmail.com',
